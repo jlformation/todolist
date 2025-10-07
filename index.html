@@ -1,14 +1,129 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todolist</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
-</head>
-<body>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todolist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Mes Tâches</h1>
+        </header>
+        <!-- formulaire -->
+        <div class="task-form">
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="title">Titre</label>
+                    <input type="text" id="title" placeholder="Ex: Faire les courses" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Catégorie</label>
+                    <select id="category" required>
+                        <option value="perso">🏠 Perso</option>
+                        <option value="pro">💼 Pro</option>
+                        <option value="autre">📌 Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description (optionnelle)</label>
+                    <textarea id="description" placeholder="Détails supplémentaires..."></textarea>
+                </div>
+                <div class="buttons">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Annuler</button>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+        <!-- liste des tâches -->
+        <ul id="taskList" class="task-list">
+            <li class="empty-message">Aucune tâche pour le moment. Ajoutez-en une avec le formulaire ci-dessus.</li>
+            <!-- simulation 
+             <li class="task-item" data-category="perso">
+                <div class="task-header">
+                    <span class="task-title">Faire les courses pour la semaine</span>
+                    <div class="task-actions">
+                        <button class="task-action-btn" title="Marquer comme terminée">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="task-action-btn" title="Afficher/masquer les détails">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button class="task-action-btn" title="Modifier la tâche">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="task-action-btn delete" title="Supprimer la tâche">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="task-description">
+                    Acheter des fruits, légumes et produits frais au marché
+                </div>
+                <div class="task-footer">
+                    <div class="task-date">07/10/25 14:30</div> 
+                    <span class="category-badge perso">🏠 Perso</span>
+                </div>
+            </li>
+                        <li class="task-item" data-category="pro">
+                <div class="task-header">
+                    <span class="task-title">Préparer la présentation client</span>
+                    <div class="task-actions">
+                        <button class="task-action-btn" title="Marquer comme terminée">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="task-action-btn" title="Afficher/masquer les détails">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button class="task-action-btn" title="Modifier la tâche">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="task-action-btn delete" title="Supprimer la tâche">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="task-description">
+                    Finaliser les slides et préparer le discours pour la réunion de vendredi
+                </div>
+                <div class="task-footer">
+                    <div class="task-date">07/10/25 09:15</div>
+                    <span class="category-badge pro">💼 Pro</span>
+                </div>
+            </li>
+            <li class="task-item done" data-category="autre">
+                <div class="task-header">
+                    <span class="task-title">Renouveler l'abonnement Netflix</span>
+                    <div class="task-actions">
+                        <button class="task-action-btn done" title="Marquer comme non terminée">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                        <button class="task-action-btn" title="Afficher/masquer les détails">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button class="task-action-btn" title="Modifier la tâche">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="task-action-btn delete" title="Supprimer la tâche">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="task-description">
+                    Vérifier les options d'abonnement et mettre à jour le mode de paiement
+                </div>
+                <div class="task-footer">
+                    <div class="task-date">06/10/25 16:45</div>
+                    <span class="category-badge autre">📌 Autre</span>
+                </div>
+            </li>-->
+        </ul>
+    </div>
 </body>
+
 </html>
