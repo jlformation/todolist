@@ -8,11 +8,29 @@ const descInput = document.getElementById("description");
 const taskList = document.getElementById("taskList");
 
 //tableau qui contiendra toutes les tâches de l'utilisateur et servira de référence
-let tasks = [];
+//on regarde d'abord si on a des tasks dans localstorage
+// init du tableau des tâches
+//let tasks = [];
+// si tasks est bien présent dans localstorage
+//JSON.parse prend une représentation d'un tableau au format json et le converti en tableau js
+// if (localStorage.getItem("tasks")) {
+//     tasks = JSON.parse(localStorage.getItem("tasks"));
+// }
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+
 
 // =============================================
 // FONCTIONS UTILITAIRES
 // =============================================
+
+/**
+ * Sauvegarde les tâches dans localStorage
+ */
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 /**
  * Affiche les tâches dans le DOM
  */
@@ -73,6 +91,8 @@ function renderTasks() {
             //si done est sur true on le passe sur false et inversement
             tasks[index].done = !tasks[index].done;
 
+            //sauvegarder mes tasks dans localstorage
+            saveTasks();
             //mise à jour de l'affichage
             renderTasks();
         });
@@ -88,10 +108,25 @@ function renderTasks() {
 
         // bouton supprimer
         let deleteBtn = document.createElement("button");
+        deleteBtn.className = "task-action-btn delete";
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        deleteBtn.title = "Supprimer la tâche";
+        deleteBtn.addEventListener("click", function() {
+            if (confirm('Voulez-vous vraiment supprimer cette tâche ?')) {
+                //on rentre dans la condition uniquement si l'utilisateur a cliqué sur ok
+                //suppression de la tâche
+                tasks.splice(index, 1);
+
+                //sauvegarder mes tasks dans localstorage
+                saveTasks();
+                //rafraichi le rendu
+                renderTasks();
+            }
+        });
 
         //remplir actions
         //actions.append(toggleBtn, detailBtn, editBtn, deleteBtn);
-        actions.append(toggleBtn);
+        actions.append(toggleBtn, deleteBtn);
         //remplir header-task
         header.append(titleSpan, actions);
 
@@ -180,5 +215,11 @@ form.addEventListener("submit", function (e) {
     categoryInput.value = "perso";
     descInput.value = "";
 
+    //sauvegarder mes tasks dans localstorage
+    saveTasks();
+    //modification de l'affichage
     renderTasks();
 });  
+
+//génération du rendu au chargement de la page
+renderTasks();
