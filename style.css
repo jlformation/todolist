@@ -145,8 +145,25 @@
       color: white;
     }
 
+    .btn-primary.selected {
+      color: var(--accent);
+      background: white;
+    }
+
     .btn-primary:hover {
       background: var(--accent-hover);
+    }
+
+    .pager {
+      text-align: center;
+    }
+    .pager .btn + .btn {
+      margin-left: 8px;
+    }
+    .pager .btn-primary:hover,
+    .btn-primary.selected {
+      color: var(--accent);
+      background: white;
     }
 
     .btn-secondary {

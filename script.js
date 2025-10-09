@@ -14,6 +14,9 @@ const h1 = document.querySelector("h1");
 
 let editingIndex = null;
 
+const pager = document.querySelector(".pager");
+const nbPage = 2;
+
 
 
 //tableau qui contiendra toutes les tâches de l'utilisateur et servira de référence
@@ -34,6 +37,23 @@ let totalTasks = 0;
 // =============================================
 // FONCTIONS UTILITAIRES
 // =============================================
+
+/**
+ * Met à jour le pager
+ */
+function updatePager() {
+    const nb = Math.ceil(totalTasks / nbPage);
+
+    for(let i = 1; i <= nb; i++) {
+        const button = document.createElement("button");
+        button.textContent = i;
+        button.className= "btn btn-primary";
+        button.addEventListener("click", function() {
+            //à compléter
+        });
+        pager.appendChild(button);
+    }
+}
 
 /**
  * Met à jour le compteur de tâches terminées
@@ -72,6 +92,8 @@ function saveTasks() {
 function renderTasks() {
     //mise à jour du compteur
     updateTaskCount();
+    //mise à jour du pager
+    updatePager();
     //effacer toutes les tâches dans notre ul et recomposer l'affichage
     taskList.innerHTML = "";
 
