@@ -39,7 +39,7 @@ let totalTasks = 0;
 // =============================================
 
 /**
- * Met à jour le pager
+ * Met à jour le pager test
  */
 function updatePager() {
     const nb = Math.ceil(totalTasks / nbPage);
