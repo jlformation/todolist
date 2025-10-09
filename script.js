@@ -10,7 +10,11 @@ const taskList = document.getElementById("taskList");
 const submitBtn = document.getElementById("submitBtn");
 const cancelBtn = document.getElementById("cancelBtn");
 
+const h1 = document.querySelector("h1");
+
 let editingIndex = null;
+
+
 
 //tableau qui contiendra toutes les tâches de l'utilisateur et servira de référence
 //on regarde d'abord si on a des tasks dans localstorage
@@ -23,11 +27,37 @@ let editingIndex = null;
 // }
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
+let totalTasks = 0;
+
 
 
 // =============================================
 // FONCTIONS UTILITAIRES
 // =============================================
+
+/**
+ * Met à jour le compteur de tâches terminées
+ */
+function updateTaskCount() {
+    //compter uniquement les taches qui ont done = true
+    const completedTasks = tasks.filter(task => task.done).length;
+    totalTasks = tasks.length;
+
+    //variable de travail
+    //par default on a aucune tâche
+    let content = "Mes Tâches";
+    if (totalTasks > 0) {
+        content += ` ${completedTasks}/${totalTasks}`;
+    }
+
+    //écrire dans h1
+    h1.textContent = content;
+
+    //en ternaire
+    //h1.textContent = `Mes Tâches ${totalTasks > 0 ? `(${completedTasks}/${totalTasks})` : ''}`;
+
+
+}
 
 /**
  * Sauvegarde les tâches dans localStorage
@@ -40,6 +70,8 @@ function saveTasks() {
  * Affiche les tâches dans le DOM
  */
 function renderTasks() {
+    //mise à jour du compteur
+    updateTaskCount();
     //effacer toutes les tâches dans notre ul et recomposer l'affichage
     taskList.innerHTML = "";
 
