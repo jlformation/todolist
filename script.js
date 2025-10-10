@@ -15,7 +15,8 @@ const h1 = document.querySelector("h1");
 let editingIndex = null;
 
 const pager = document.querySelector(".pager");
-const nbPage = 2;
+const nbParPage = 2; //nb de tâches par page
+let page = 1; //par défault on est sur la page 1
 
 
 
@@ -39,17 +40,36 @@ let totalTasks = 0;
 // =============================================
 
 /**
+ * set la dernière page
+ */
+
+function setLastPage() {
+    page = Math.ceil(tasks.length / nbParPage);
+}
+/**
  * Met à jour le pager test
  */
 function updatePager() {
-    const nb = Math.ceil(totalTasks / nbPage);
+    const nb = Math.ceil(totalTasks / nbParPage);
+    //init du dom du pager
+    pager.innerHTML = "";
 
     for(let i = 1; i <= nb; i++) {
         const button = document.createElement("button");
         button.textContent = i;
-        button.className= "btn btn-primary";
+        //test page courante
+        if (i == page) {
+            button.className= "btn btn-primary selected";
+        }
+        else {
+            button.className= "btn btn-primary";
+        }
+        
         button.addEventListener("click", function() {
-            //à compléter
+            //quand je clique, je change de page 
+            //je vais modifier la variable page et relancer renderTasks()
+            page = i;
+            renderTasks();
         });
         pager.appendChild(button);
     }
@@ -90,6 +110,7 @@ function saveTasks() {
  * Affiche les tâches dans le DOM
  */
 function renderTasks() {
+ 
     //mise à jour du compteur
     updateTaskCount();
     //mise à jour du pager
@@ -110,7 +131,9 @@ function renderTasks() {
 
     //ici on a au moins une tâche
     //parcourir tasks
-    tasks.forEach(function (task, index) {
+    //tasks.forEach(function (task, index) {
+    for(let index = (page -1) * nbParPage; index < (page * nbParPage) && index < tasks.length; index++) {
+        let task = tasks[index];
         //pour chaque task on va créer notre li dans le DOM
         let li = document.createElement("li");
         li.className = `task-item ${task.done ? 'done' : ''}`;
@@ -205,6 +228,12 @@ function renderTasks() {
                 //suppression de la tâche
                 tasks.splice(index, 1);
 
+                //test si la tâche est la dernière du tableau tasks
+                if (index == tasks.length) {
+                    //changement de la dernière page
+                    setLastPage();
+                }
+
                 //sauvegarder mes tasks dans localstorage
                 saveTasks();
                 //rafraichi le rendu
@@ -278,7 +307,8 @@ function renderTasks() {
         //on insére le li dans notre taskList
         taskList.appendChild(li);
 
-    });
+    //});
+    }
 }
 
 // =============================================
@@ -324,6 +354,9 @@ form.addEventListener("submit", function (e) {
             date: new Date().toISOString(),
             done: false
         });
+
+        //qund on créé une tâche nous allons sur la dernière page
+        setLastPage();
     }
 
 
